@@ -10,6 +10,7 @@ class LandingPage extends Component {
     verticalCentered: true,
     scrollingSpeed: 700,
     navigation: false,
+    dragAndMove: 'fingersonly',
   };
 
   render() {

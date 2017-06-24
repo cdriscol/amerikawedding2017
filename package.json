@@ -16,7 +16,7 @@
     "clean": "rimraf dist",
     "slate": "rimraf node_modules && npm install",
     "lint": "eslint client server",
-    "forever:start": "cross-env NODE_ENV=production forever start -l amerikawedding2017.log --minUptime 1000 --spinSleepTime 1000 index.js",
+    "forever:start": "cross-env NODE_ENV=production forever start -l amerikawedding2017.log --append --minUptime 1000 --spinSleepTime 1000 index.js",
     "forever:stop": "forever stop index.js || true",
     "forever:restart": "npm run forever:stop && npm run forever:start"
   },

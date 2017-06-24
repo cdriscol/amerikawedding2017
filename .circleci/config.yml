@@ -8,8 +8,8 @@ jobs:
       - image: circleci/node:4.8.2
     steps:
       - run:
-          name: git-pull
-          command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && git pull && git clean -f -d'
+          name: git-reset
+          command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && git fetch origin && git reset --hard origin/master'
       - run:
           name: yarn-install
           command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && yarn'

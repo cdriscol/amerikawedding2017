@@ -23,7 +23,7 @@ export function findRowByCodeAsync(code, { transform = true } = {}) {
             return;
           }
 
-          const match = rowData.find(r => r.code === code);
+          const match = rowData.find(r => r.code.toUpperCase() === code.toUpperCase());
           if (match) resolve(transform ? transformRow(match) : match);
           else reject(new Error('Code match not found'));
         });

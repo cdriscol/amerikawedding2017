@@ -4,20 +4,29 @@ import ClientOnly from '../../components/ClientOnly';
 import styles from './LandingPage.css';
 
 class LandingPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      current: 0,
+    };
+  }
+
   options = {
-    sectionClassName: 'section',
-    anchors: ['home', 'rsvp'],
-    verticalCentered: true,
-    scrollingSpeed: 700,
+    sectionClassName: 'container',
+    anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
+    scrollBar: false,
     navigation: false,
-    dragAndMove: 'fingersonly',
+    verticalAlign: false,
+    arrowNavigation: false,
+    scrollCallback: (states) => this.setState({ current: states.activeSection }),
   };
 
   render() {
+    const { current } = this.state;
     return (
       <div>
         <ClientOnly>
-          <SectionsContainer {...this.options}>
+          <SectionsContainer className="container" {...this.options} activeSection={current}>
             <Section className={styles.section__home}>
               <div></div>
             </Section>

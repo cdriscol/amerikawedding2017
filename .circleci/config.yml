@@ -7,22 +7,6 @@ jobs:
     docker:
       - image: circleci/node:4.8.2
     steps:
-#      - checkout
-#      - run:
-#          name: install-yarn
-#          command: 'sudo npm i -g yarn@latest'
-#      - restore_cache:
-#          key: dependency-cache-{{ checksum "package.json" }}
-#      - run:
-#          name: yarn-install
-#          command: yarn install
-#      - save_cache:
-#          key: dependency-cache-{{ checksum "package.json" }}
-#          paths:
-#            - ./node_modules
-#      - run:
-#          name: lint
-#          command: yarn lint
       - run:
           name: git-pull
           command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && git pull && git clean -f -d'

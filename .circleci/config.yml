@@ -24,5 +24,14 @@ jobs:
           name: lint
           command: yarn lint
       - run:
-          name: deploy
+          name: git-pull
           command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && git pull'
+      - run:
+          name: yarn-install
+          command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && yarn'
+      - run:
+          name: build-prod
+          command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && yarn build:prod'
+      - run:
+          name: forever-restart
+          command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && yarn forever:restart'

@@ -12,10 +12,13 @@
     "bs": "npm run clean && npm run build && npm run build:server && npm run start:prod",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
+    "build:prod": "npm run clean && npm run build && npm run build:server",
     "clean": "rimraf dist",
     "slate": "rimraf node_modules && npm install",
     "lint": "eslint client server",
-    "forever": "npm run clean && npm run build && npm run build:server && cross-env NODE_ENV=production forever start --minUptime 1000 --spinSleepTime 1000 index.js >> forever.log 2>&1"
+    "forever:start": "cross-env NODE_ENV=production forever start --minUptime 1000 --spinSleepTime 1000 index.js >> forever.log 2>&1",
+    "forever:stop": "forever stop index.js || true",
+    "forever:restart": "npm run forever:stop && npm run forever:start"
   },
   "pre-commit": [ "lint" ],
   "repository": {

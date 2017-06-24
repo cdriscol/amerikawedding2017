@@ -1,3 +1,7 @@
 .section__home {
-  background: url('../landing/amerika_bg.png') right center;
+  background: url('../landing/home_bg.png') right center;
+}
+
+.section__rsvp {
+  background: url('../landing/rsvp_bg.png') center;
 }

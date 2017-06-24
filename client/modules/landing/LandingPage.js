@@ -18,10 +18,10 @@ class LandingPage extends Component {
         <ClientOnly>
           <SectionsContainer {...this.options}>
             <Section className={styles.section__home}>
-              <div>Top section</div>
+              <div></div>
             </Section>
-            <Section>
-              <div>Bottom section</div>
+            <Section className={styles.section__rsvp}>
+              <div></div>
             </Section>
           </SectionsContainer>
         </ClientOnly>

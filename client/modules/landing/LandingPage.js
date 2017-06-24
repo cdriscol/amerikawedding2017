@@ -4,7 +4,7 @@ class LandingPage extends Component {
   render() {
     return (
       <div style={{ textAlign: 'center' }}>
-        Coming soon..
+        Coming soon...
       </div>
     );
   }

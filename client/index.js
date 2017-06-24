@@ -2,8 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './App';
-
-// Initialize store
 const mountApp = document.getElementById('root');
 
 render(

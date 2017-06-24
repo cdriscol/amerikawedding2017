@@ -10,7 +10,7 @@ const transformRow = gRow => ({
   message: gRow.rsvpmessage,
 });
 
-export function findRowByCodeAsync(code, { transform = true }) {
+export function findRowByCodeAsync(code, { transform = true } = {}) {
   return new Promise((resolve, reject) => {
     const sheet = new GoogleSpreadsheet(config.sheets.rsvpId);
     sheet.useServiceAccountAuth(config.sheets.creds, err1 => {

@@ -13,7 +13,7 @@ class LandingPage extends Component {
 
   options = {
     sectionClassName: 'container',
-    anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
+    anchors: ['home', 'rsvp'],
     scrollBar: false,
     navigation: false,
     verticalAlign: false,

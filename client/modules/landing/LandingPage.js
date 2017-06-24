@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SectionsContainer, Section } from 'react-fullpage';
 import ClientOnly from '../../components/ClientOnly';
 import styles from './LandingPage.css';
+import { HomeSection } from './sections';
 
 class LandingPage extends Component {
   constructor(props) {
@@ -26,14 +27,16 @@ class LandingPage extends Component {
     return (
       <div>
         <ClientOnly>
-          <SectionsContainer className="container" {...this.options} activeSection={current}>
-            <Section className={styles.section__home}>
-              <div></div>
-            </Section>
-            <Section className={styles.section__rsvp}>
-              <div></div>
-            </Section>
-          </SectionsContainer>
+          <div>
+            <SectionsContainer className="container" {...this.options} activeSection={current}>
+              <Section className={styles.section__home}>
+                <HomeSection />
+              </Section>
+              <Section className={styles.section__rsvp}>
+                <div></div>
+              </Section>
+            </SectionsContainer>
+          </div>
         </ClientOnly>
       </div>
     );

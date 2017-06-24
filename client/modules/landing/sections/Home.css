@@ -1,0 +1,81 @@
+.home__wrapper {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.home__content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.home__secondary {
+  font-family: "Cardo script=all rev=2", "Adobe Blank";
+  font-weight: 400;
+  font-style: italic;
+  color: white;
+  font-size: 1.6rem;
+  text-align: center;
+  margin: 4px;
+}
+
+.home__amp__wrapper {
+  font-family: "Cardo script=all rev=2", "Adobe Blank";
+  font-weight: 400;
+  font-style: italic;
+  color: white;
+  font-size: 4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin: 4px;
+}
+
+.home__amp__line {
+  font-family: "Cardo script=all rev=2", "Adobe Blank";
+  font-weight: 400;
+  font-style: italic;
+  color: white;
+  font-size: 4rem;
+  text-align: center;
+  border-bottom: 1px solid white;
+  width: 100px;
+  margin: 0 25px;
+}
+
+.home__amp {
+}
+
+.home__primary {
+  text-transform: uppercase;
+  color: white;
+  font-size: 4rem;
+  letter-spacing: 0.3rem;
+}
+
+.home__button {
+  margin-top: 60px;
+  min-width: 200px;
+  padding: 12px;
+  background: transparent;
+  border-radius: 4px;
+  border-color: white;
+  color: white;
+  font-weight: 400;
+}
+
+.home__button:hover {
+  cursor: pointer;
+}
+
+.home__button:focus {
+  border-color: white;
+  outline: 0;
+}

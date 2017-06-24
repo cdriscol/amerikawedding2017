@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './App.css';
 import Helmet from 'react-helmet';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
 
 export class App extends Component {
   render() {
@@ -24,11 +21,9 @@ export class App extends Component {
               },
             ]}
           />
-          <Header />
-          <div className={styles.container}>
+          <div>
             {this.props.children}
           </div>
-          <Footer />
         </div>
       </div>
     );

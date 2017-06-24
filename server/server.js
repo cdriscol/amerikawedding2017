@@ -11,6 +11,17 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 
 // Initialize the Express App
 const app = new Express();
+import winston from 'winston';
+import expressWinston from 'express-winston';
+expressWinston.requestWhitelist.push('body');
+expressWinston.responseWhitelist.push('body');
+app.use(expressWinston.logger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+    }),
+  ],
+}));
 
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {

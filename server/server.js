@@ -38,7 +38,7 @@ import Helmet from 'react-helmet';
 
 // Import required modules
 import routes from '../client/routes';
-import rsvpRoutes from './routes/rsvp.routes';
+import rsvpRoutes from './rsvp/rsvp.routes';
 import serverConfig from './config';
 
 // Apply body Parser and server public assets and routes

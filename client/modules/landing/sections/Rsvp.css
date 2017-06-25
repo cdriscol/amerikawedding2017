@@ -51,7 +51,7 @@ button.rsvp__form__submit:active,
 button.rsvp__form__submit.active,
 button.rsvp__form__submit:active:hover {
   color: white;
-  background-color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3);
   border-color: rgba(0, 0, 0, 0.8);
 }
 

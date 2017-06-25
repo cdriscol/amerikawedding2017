@@ -6,7 +6,7 @@ const transformRow = gRow => ({
   names: gRow.names,
   size: Number(gRow.partysize),
   count: Number(gRow.rsvpcount),
-  attending: gRow.rsvpattending && gRow.rsvpattending.split(','),
+  attending: gRow.rsvpattending && gRow.rsvpattending.split(', '),
   message: gRow.rsvpmessage,
 });
 

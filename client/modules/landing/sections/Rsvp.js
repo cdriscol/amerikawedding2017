@@ -45,6 +45,15 @@ class RsvpSection extends Component {
         }
       }
     }
+
+    callApi(`rsvp/${this.state.code}`, 'post', row)
+      .then(() => {
+        this.setState({ successMessage: 'Done!' });
+      })
+      .catch(() => {
+        const error = 'Something went wrong.. try again later.';
+        this.setState({ error, successMessage: null });
+      });
   };
 
   handleSubmit = e => {
@@ -96,10 +105,10 @@ class RsvpSection extends Component {
   };
 
   renderGuestOptions = () => {
-    const { row: { count, size } } = this.state;
+    const { row: { size } } = this.state;
     const options = [];
     for (let i = 0; i <= size; i++) {
-      options.push(<option key={i} value={i} selected={i === count}>{i} guest{i > 1 ? 's' : ''}</option>);
+      options.push(<option key={i} value={i}>{i} guest{i === 1 ? 's' : ''}</option>);
     }
     return options;
   };
@@ -141,7 +150,7 @@ class RsvpSection extends Component {
         <h4>Guests</h4>
         <FormGroup controlId="formControlsSelect">
           <ControlLabel>Counting yourself, how many guests total are you RSVPing for?</ControlLabel>
-          <FormControl componentClass="select" placeholder="select" onChange={this.handleGuestSelection}>
+          <FormControl value={count} componentClass="select" placeholder="select" onChange={this.handleGuestSelection}>
             {this.renderGuestOptions(size)}
           </FormControl>
         </FormGroup>
@@ -170,36 +179,52 @@ class RsvpSection extends Component {
     );
   };
 
-  render() {
+  renderForm = () => {
     const { code, error, row, submitting } = this.state;
+    return (
+      <Form className={styles.rsvp__form} onSubmit={this.handleSubmit}>
+        <h4>Enter the code from your invitation card</h4>
+        <FieldGroup
+          id="rsvpCode"
+          type="text"
+          label="RSVP Code"
+          placeholder="RSVP Code"
+          className={[styles.rsvp__form__input]}
+          onChange={this.handleCodeChange}
+          value={code}
+          error={this.getCodeError()}
+          disabled={row}
+        />
+        {row && this.renderRowFormControls()}
+        {row && this.renderMessage()}
+        <Button disabled={submitting} onClick={this.handleSubmit} className={[styles.rsvp__form__submit]} bsStyle="primary" type="button" block>
+          {row ? 'Send' : 'Submit'}
+        </Button>
+        <div className={[styles.rsvp__form__errorWrapper]}>
+          <div className={[styles.rsvp__form__error]}>{this.getCodeError() || error}</div>
+        </div>
+      </Form>
+    );
+  };
+
+  renderSuccessMessage = () => {
+    return (
+      <div className={styles.rsvp__successWrapper}>
+        <h3>Thank you!</h3>
+      </div>
+    );
+  };
+
+  render() {
+    const { successMessage } = this.state;
 
     return (
       <div className={styles.rsvp__wrapper}>
         <div className={styles.rsvp__content}>
           <h3 className={styles.rsvp__title}>RSVP</h3>
           <div className={styles.rsvp__formWrapper}>
-            <Form className={styles.rsvp__form} onSubmit={this.handleSubmit}>
-              <h4>Enter the code from your invitation card</h4>
-              <FieldGroup
-                id="rsvpCode"
-                type="text"
-                label="RSVP Code"
-                placeholder="RSVP Code"
-                className={[styles.rsvp__form__input]}
-                onChange={this.handleCodeChange}
-                value={code}
-                error={this.getCodeError()}
-                disabled={row}
-              />
-              {row && this.renderRowFormControls()}
-              {row && this.renderMessage()}
-              <Button disabled={submitting} onClick={this.handleSubmit} className={[styles.rsvp__form__submit]} bsStyle="primary" type="button" block>
-                {row ? 'Send' : 'Submit'}
-              </Button>
-              <div className={[styles.rsvp__form__errorWrapper]}>
-                <div className={[styles.rsvp__form__error]}>{this.getCodeError() || error}</div>
-              </div>
-            </Form>
+            {this.renderForm()}
+            {successMessage && this.renderSuccessMessage()}
           </div>
         </div>
       </div>

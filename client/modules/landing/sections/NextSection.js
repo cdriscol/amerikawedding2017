@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import styles from './NextSection.css';
-import { TweenMax } from 'gsap';
+import { TweenMax, Sine } from 'gsap';
 
 class HomeSection extends Component {
   componentDidMount() {
-    TweenMax.fromTo(this.svg, 1.5, { opacity: 0.5 }, { opacity: 1, scale: 1.25, yoyo: true, repeat: -1 });
+    TweenMax.fromTo(this.svg, 1.5, { opacity: 0.5 }, { opacity: 1, scale: 1.25, yoyo: true, repeat: -1, ease: Sine.easeInOut, repeatDelay: 0.01 });
   }
 
   render() {

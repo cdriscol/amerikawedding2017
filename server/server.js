@@ -40,6 +40,8 @@ import Helmet from 'react-helmet';
 import routes from '../client/routes';
 import rsvpRoutes from './rsvp/rsvp.routes';
 import serverConfig from './config';
+import logger from './util/logger';
+logger.debug(serverConfig);
 
 // Apply body Parser and server public assets and routes
 app.use(compression());

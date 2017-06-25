@@ -25,6 +25,7 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: all 100ms ease-in-out;
   margin: 0 10px;
+  z-index: 1;
 }
 
 .rsvp__form {
@@ -93,4 +94,27 @@ button.rsvp__form__submit:active:hover {
   justify-content: center;
   align-content: center;
   align-items: center;
+}
+
+.rsvp__formLeaf1 {
+  width: 150px;
+  height: 150px;
+  background: url('../leaf1.png');
+  background-size: contain;
+  position: absolute;
+  z-index: 0;
+  left: calc(50% - 320px);
+  transform: rotate(-60deg);
+}
+
+.rsvp__formLeaf2 {
+  width: 75px;
+  height: 75px;
+  background: url('../leaf1.png');
+  background-size: contain;
+  position: absolute;
+  z-index: 0;
+  top: calc(50% - 50px);
+  left: calc(50% + 200px);
+  transform: rotate(60deg);
 }

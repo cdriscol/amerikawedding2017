@@ -226,6 +226,8 @@ class RsvpSection extends Component {
             {this.renderForm()}
             {successMessage && this.renderSuccessMessage()}
           </div>
+          <div className={styles.rsvp__formLeaf1}></div>
+          <div className={styles.rsvp__formLeaf2}></div>
         </div>
       </div>
     );

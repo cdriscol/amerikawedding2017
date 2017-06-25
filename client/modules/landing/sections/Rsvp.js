@@ -3,6 +3,7 @@ import styles from './Rsvp.css';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import RsvpError from './Rsvp/Error';
 import FieldGroup from './Rsvp/FieldGroup';
+import ThankYou from './Rsvp/ThankYou';
 
 class RsvpSection extends Component {
   static contextTypes = {
@@ -164,14 +165,6 @@ class RsvpSection extends Component {
     );
   };
 
-  renderSuccessMessage = () => {
-    return (
-      <div className={styles.rsvp__successWrapper}>
-        <h3>Thank you!</h3>
-      </div>
-    );
-  };
-
   render() {
     const { successMessage } = this.context;
 
@@ -181,7 +174,7 @@ class RsvpSection extends Component {
           <h3 className={styles.rsvp__title}>RSVP</h3>
           <div className={styles.rsvp__formWrapper}>
             {this.renderForm()}
-            {successMessage && this.renderSuccessMessage()}
+            {successMessage && <ThankYou />}
           </div>
           <div className={styles.rsvp__formLeaf1} />
           <div className={styles.rsvp__formLeaf2} />

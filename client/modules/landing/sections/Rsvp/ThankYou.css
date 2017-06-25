@@ -1,0 +1,12 @@
+.thankYou {
+  top: 0;
+  padding: 40px;
+  position: absolute;
+  background: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}

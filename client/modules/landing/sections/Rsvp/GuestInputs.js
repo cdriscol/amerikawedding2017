@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './GuestInputs.css';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import FieldGroup from './FieldGroup';
+import GuestInput from './GuestInput';
 
 export default class RsvpGuestInputs extends Component {
   static contextTypes = {
@@ -12,10 +11,6 @@ export default class RsvpGuestInputs extends Component {
 
   handleGuestSelection = ({ target: { value } }) => {
     this.context.setCount(value);
-  };
-
-  handleGuestNameChange = (index, { target: { value } }) => {
-    this.context.updateGuest(index, value);
   };
 
   renderGuestOptions = () => {
@@ -29,31 +24,11 @@ export default class RsvpGuestInputs extends Component {
     return options;
   };
 
-  renderGuestInput = (index, attending) => {
-    const value = index < attending.length ? attending[index] : '';
-    return (
-      <div key={index} className={styles.rsvp__guestInputWrapper}>
-        <div className={styles.rsvp__guestInputIndex}>{index + 1}</div>
-        <div className={styles.rsvp__guestInputInput}>
-          <FieldGroup
-            id={`attending${index}`}
-            type="text"
-            label="Name"
-            placeholder={index % 2 === 1 ? 'Jan Doe' : 'John Doe'}
-            onChange={this.handleGuestNameChange.bind(this, index)}
-            value={value}
-            error={!value ? 'Name required' : null}
-          />
-        </div>
-      </div>
-    );
-  };
-
   renderGuestInputs = () => {
     const { row: { count, attending } } = this.context;
     const guestInputs = [];
     for (let i = 0; i < count; i++) {
-      guestInputs.push(this.renderGuestInput(i, attending));
+      guestInputs.push(<GuestInput key={i} index={i} attending={attending} />);
     }
     return guestInputs;
   };
@@ -61,7 +36,7 @@ export default class RsvpGuestInputs extends Component {
   render() {
     const { row: { size, count } } = this.context;
     return (
-      <div>
+      <div ref={e => { this.wrapper = e; }}>
         <FormGroup controlId="formControlsSelect">
           <ControlLabel>Counting yourself, how many guests total are you RSVPing for?</ControlLabel>
           <FormControl value={count} componentClass="select" placeholder="select" onChange={this.handleGuestSelection}>

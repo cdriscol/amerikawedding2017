@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './Form.css';
 import { Form, Button } from 'react-bootstrap';
 import RsvpError from './Error';
-import RsvpGuestInputs from './GuestInputs';
-import RsvpMessage from './Message';
+import ResponseForm from './ResponseForm';
 import RsvpCodeInput from './CodeInput';
 
 export default class RsvpForm extends Component {
@@ -22,6 +21,17 @@ export default class RsvpForm extends Component {
     setMessage: PropTypes.func.isRequired,
   };
 
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    const { row } = this.context;
+    const { row: prevRow } = prevContext;
+    if (prevRow === row) return;
+    if (row) {
+      console.log('hide code input');
+    } else {
+      console.log('show code input');
+    }
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     const { row, postRsvp, fetchRsvp } = this.context;
@@ -34,9 +44,7 @@ export default class RsvpForm extends Component {
     return (
       <Form className={styles.rsvp__form} onSubmit={this.handleSubmit}>
         {!row && <RsvpCodeInput />}
-        {row && <h4>Hello, {row.names}!</h4>}
-        {row && <RsvpGuestInputs />}
-        {row && <RsvpMessage />}
+        {row && <ResponseForm />}
         <Button disabled={submitting} onClick={this.handleSubmit} className={[styles.rsvp__form__submit]} bsStyle="primary" type="button" block>
           {row ? 'Send' : 'Submit'}
         </Button>

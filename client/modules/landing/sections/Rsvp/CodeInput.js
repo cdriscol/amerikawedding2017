@@ -14,7 +14,7 @@ export default class RsvpCodeInput extends Component {
   render() {
     const { code, row, codeError } = this.context;
     return (
-      <div>
+      <div {...this.props}>
         <h4>Enter the code from your invitation card</h4>
         <FieldGroup
           id="rsvpCode"

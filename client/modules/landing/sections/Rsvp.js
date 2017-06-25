@@ -23,6 +23,7 @@ class RsvpSection extends Component {
     this.state = {
       code: '',
       submitted: false,
+      submitting: false,
       error: null,
       row: null,
     };
@@ -55,17 +56,38 @@ class RsvpSection extends Component {
     this.setState({ code: value, error: null });
   };
 
+  handleGuestSelection = ({ target: { value } }) => {
+    const { row } = this.state;
+    row.count = value;
+    this.setState({ row });
+  };
+
+  renderGuestOptions = () => {
+    const { row: { count, size } } = this.state;
+    const options = [];
+    for (let i = 0; i <= size; i++) {
+      options.push(<option value={i} selected={i === count}>{i} guest{i > 1 ? 's' : ''}</option>);
+    }
+    return options;
+  };
+
   renderRowFormControls = () => {
-    // const { row } = this.state;
+    const { row: { size } } = this.state;
     return (
-      <div>
-        Coming soon..
+      <div className={styles.rsvp__rowWrapper}>
+        <h4>Guests</h4>
+        <FormGroup controlId="formControlsSelect">
+          <ControlLabel>Counting yourself, how many guests total are you RSVPing for?</ControlLabel>
+          <FormControl componentClass="select" placeholder="select" onChange={this.handleGuestSelection}>
+            {this.renderGuestOptions(size)}
+          </FormControl>
+        </FormGroup>
       </div>
     );
   };
 
   render() {
-    const { code, error, row } = this.state;
+    const { code, error, row, submitting } = this.state;
 
     return (
       <div className={styles.rsvp__wrapper}>
@@ -73,20 +95,20 @@ class RsvpSection extends Component {
           <h3 className={styles.rsvp__title}>RSVP</h3>
           <div className={styles.rsvp__formWrapper}>
             <Form className={styles.rsvp__form}>
-              <span className={row && styles.hide}>
-                <FieldGroup
-                  id="rsvpCode"
-                  type="text"
-                  label="RSVP Code"
-                  placeholder="RSVP Code"
-                  className={[styles.rsvp__form__input]}
-                  onChange={this.handleCodeChange}
-                  value={code}
-                  error={this.getCodeError()}
-                />
-              </span>
+              <h4>Enter the code from your invitation card</h4>
+              <FieldGroup
+                id="rsvpCode"
+                type="text"
+                label="RSVP Code"
+                placeholder="RSVP Code"
+                className={[styles.rsvp__form__input]}
+                onChange={this.handleCodeChange}
+                value={code}
+                error={this.getCodeError()}
+                disabled={row}
+              />
               {row && this.renderRowFormControls()}
-              <Button onClick={this.handleSubmit} className={[styles.rsvp__form__submit]} bsStyle="primary" type="button" block>
+              <Button disabled={submitting} onClick={this.handleSubmit} className={[styles.rsvp__form__submit]} bsStyle="primary" type="button" block>
                 Submit
               </Button>
               <div className={[styles.rsvp__form__errorWrapper]}>

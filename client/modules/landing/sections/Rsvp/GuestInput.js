@@ -5,13 +5,12 @@ import { TweenMax } from 'gsap';
 
 export default class RsvpGuestInput extends Component {
   static contextTypes = {
-    row: PropTypes.object,
     updateGuest: PropTypes.func.isRequired,
+    attending: PropTypes.arrayOf(PropTypes.string),
   };
 
   static propTypes = {
     index: PropTypes.number,
-    attending: PropTypes.arrayOf(PropTypes.string),
   };
 
   componentDidMount() {
@@ -23,7 +22,8 @@ export default class RsvpGuestInput extends Component {
   };
 
   render() {
-    const { index, attending } = this.props;
+    const { index } = this.props;
+    const { attending } = this.context;
     const value = index < attending.length ? attending[index] : '';
     return (
       <div ref={e => { this.element = e; }} className={styles.rsvp__guestInputWrapper}>

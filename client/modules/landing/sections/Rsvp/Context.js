@@ -1,5 +1,6 @@
 import { Component, PropTypes } from 'react';
 import callApi from '../../../../util/apiCaller';
+import get from 'lodash/get';
 
 class RsvpContext extends Component {
   static propTypes = {
@@ -11,16 +12,21 @@ class RsvpContext extends Component {
     setCode: PropTypes.func,
     codeError: PropTypes.string,
     row: PropTypes.object,
-    setRow: PropTypes.func,
     setCount: PropTypes.func,
+    count: PropTypes.number,
+    size: PropTypes.number,
+    message: PropTypes.string,
+    names: PropTypes.string,
     setMessage: PropTypes.func,
     updateGuest: PropTypes.func,
+    attending: PropTypes.arrayOf(PropTypes.string),
     submitted: PropTypes.bool,
     submitting: PropTypes.bool,
     successMessage: PropTypes.string,
     error: PropTypes.string,
     fetchRsvp: PropTypes.func,
     postRsvp: PropTypes.func,
+    codeConfirmed: PropTypes.bool,
   };
 
   state = {
@@ -36,17 +42,22 @@ class RsvpContext extends Component {
       code: this.code,
       setCode: this.setCode,
       row: this.row,
-      setRow: this.setRow,
       submitted: this.submitted,
       submitting: this.submitting,
       error: this.error,
       fetchRsvp: this.fetchRsvp,
       postRsvp: this.postRsvp,
       setCount: this.setCount,
+      count: this.count,
+      size: this.size,
       updateGuest: this.updateGuest,
       setMessage: this.setMessage,
       codeError: this.codeError,
       successMessage: this.successMessage,
+      message: this.message,
+      attending: this.attending,
+      codeConfirmed: this.codeConfirmed,
+      names: this.names,
     };
   }
 
@@ -56,7 +67,6 @@ class RsvpContext extends Component {
     this.setState({ row });
   };
   setCode = code => this.setState({ code, error: null });
-  setRow = row => this.setState({ row });
   setCount = count => {
     const { row } = this.state;
     row.count = Number(count);
@@ -108,6 +118,26 @@ class RsvpContext extends Component {
       });
   };
 
+  get count() {
+    return Number(get(this.state, 'row.count', 0));
+  }
+
+  get size() {
+    return Number(get(this.state, 'row.size', 0));
+  }
+
+  get message() {
+    return get(this.state, 'row.message', '');
+  }
+
+  get names() {
+    return get(this.state, 'row.names', '');
+  }
+
+  get attending() {
+    return get(this.state, 'row.attending', []);
+  }
+
   get code() {
     return this.state.code || '';
   }
@@ -136,6 +166,10 @@ class RsvpContext extends Component {
 
   get error() {
     return this.state.error;
+  }
+
+  get codeConfirmed() {
+    return !!this.state.row;
   }
 
   render = () => this.props.children;

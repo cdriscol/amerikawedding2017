@@ -10,8 +10,7 @@ export default class RsvpForm extends Component {
     code: PropTypes.string,
     setCode: PropTypes.func.isRequired,
     codeError: PropTypes.string,
-    row: PropTypes.object,
-    setRow: PropTypes.func.isRequired,
+    codeConfirmed: PropTypes.bool,
     submitted: PropTypes.bool,
     submitting: PropTypes.bool,
     error: PropTypes.string,
@@ -21,32 +20,21 @@ export default class RsvpForm extends Component {
     setMessage: PropTypes.func.isRequired,
   };
 
-  componentDidUpdate(prevProps, prevState, prevContext) {
-    const { row } = this.context;
-    const { row: prevRow } = prevContext;
-    if (prevRow === row) return;
-    if (row) {
-      console.log('hide code input');
-    } else {
-      console.log('show code input');
-    }
-  }
-
   handleSubmit = e => {
     e.preventDefault();
-    const { row, postRsvp, fetchRsvp } = this.context;
-    return row ? postRsvp() : fetchRsvp();
+    const { codeConfirmed, postRsvp, fetchRsvp } = this.context;
+    return codeConfirmed ? postRsvp() : fetchRsvp();
   };
 
   render() {
-    const { row, codeError, error, submitting } = this.context;
+    const { codeConfirmed, codeError, error, submitting } = this.context;
     const currentError = codeError || error;
     return (
       <Form className={styles.rsvp__form} onSubmit={this.handleSubmit}>
-        {!row && <RsvpCodeInput />}
-        {row && <ResponseForm />}
+        {!codeConfirmed && <RsvpCodeInput />}
+        {codeConfirmed && <ResponseForm />}
         <Button disabled={submitting} onClick={this.handleSubmit} className={[styles.rsvp__form__submit]} bsStyle="primary" type="button" block>
-          {row ? 'Send' : 'Submit'}
+          {codeConfirmed ? 'Send' : 'Submit'}
         </Button>
         <RsvpError error={currentError} />
       </Form>

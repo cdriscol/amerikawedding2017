@@ -5,18 +5,7 @@ import { TweenMax } from 'gsap';
 
 export default class ResponseForm extends Component {
   static contextTypes = {
-    code: PropTypes.string,
-    setCode: PropTypes.func.isRequired,
-    codeError: PropTypes.string,
-    row: PropTypes.object,
-    setRow: PropTypes.func.isRequired,
-    submitted: PropTypes.bool,
-    submitting: PropTypes.bool,
-    error: PropTypes.string,
-    fetchRsvp: PropTypes.func.isRequired,
-    postRsvp: PropTypes.func.isRequired,
-    setCount: PropTypes.func.isRequired,
-    setMessage: PropTypes.func.isRequired,
+    names: PropTypes.string,
   };
 
   componentDidMount() {
@@ -24,10 +13,10 @@ export default class ResponseForm extends Component {
   }
 
   render() {
-    const { row } = this.context;
+    const { names } = this.context;
     return (
       <div ref={e => { this.wrapper = e; }}>
-        <h4>Hello, {row.names}!</h4>
+        <h4>Hello, {names}!</h4>
         <RsvpGuestInputs />
         <RsvpMessage />
       </div>

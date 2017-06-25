@@ -3,8 +3,8 @@ import FieldGroup from './FieldGroup';
 
 export default class RsvpCodeInput extends Component {
   static contextTypes = {
-    row: PropTypes.object,
     setCode: PropTypes.func.isRequired,
+    codeConfirmed: PropTypes.bool,
   };
 
   handleCodeChange = ({ target: { value } }) => {
@@ -12,7 +12,7 @@ export default class RsvpCodeInput extends Component {
   };
 
   render() {
-    const { code, row, codeError } = this.context;
+    const { code, codeConfirmed, codeError } = this.context;
     return (
       <div {...this.props}>
         <h4>Enter the code from your invitation card</h4>
@@ -24,7 +24,7 @@ export default class RsvpCodeInput extends Component {
           onChange={this.handleCodeChange}
           value={code}
           error={codeError}
-          disabled={row}
+          disabled={codeConfirmed}
         />
       </div>
     );

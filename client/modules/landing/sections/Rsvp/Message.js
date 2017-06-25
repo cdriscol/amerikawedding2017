@@ -3,7 +3,7 @@ import FieldGroup from './FieldGroup';
 
 export default class RsvpMessage extends Component {
   static contextTypes = {
-    row: PropTypes.object,
+    message: PropTypes.string,
     setMessage: PropTypes.func.isRequired,
   };
 
@@ -12,7 +12,7 @@ export default class RsvpMessage extends Component {
   };
 
   render() {
-    const { row: { message } } = this.context;
+    const { message } = this.context;
     return (
       <div>
         <h4>Message</h4>

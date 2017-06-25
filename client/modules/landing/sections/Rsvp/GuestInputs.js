@@ -4,7 +4,8 @@ import GuestInput from './GuestInput';
 
 export default class RsvpGuestInputs extends Component {
   static contextTypes = {
-    row: PropTypes.object,
+    size: PropTypes.number,
+    count: PropTypes.number,
     updateGuest: PropTypes.func.isRequired,
     setCount: PropTypes.func.isRequired,
   };
@@ -14,7 +15,7 @@ export default class RsvpGuestInputs extends Component {
   };
 
   renderGuestOptions = () => {
-    const { row: { size } } = this.context;
+    const { size } = this.context;
     const options = [];
     for (let i = 0; i <= size; i++) {
       let value = 'I will not be attending';
@@ -25,16 +26,16 @@ export default class RsvpGuestInputs extends Component {
   };
 
   renderGuestInputs = () => {
-    const { row: { count, attending } } = this.context;
+    const { count } = this.context;
     const guestInputs = [];
     for (let i = 0; i < count; i++) {
-      guestInputs.push(<GuestInput key={i} index={i} attending={attending} />);
+      guestInputs.push(<GuestInput key={i} index={i} />);
     }
     return guestInputs;
   };
 
   render() {
-    const { row: { size, count } } = this.context;
+    const { size, count } = this.context;
     return (
       <div ref={e => { this.wrapper = e; }}>
         <FormGroup controlId="formControlsSelect">

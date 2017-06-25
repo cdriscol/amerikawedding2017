@@ -1,20 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 import Youtube from 'react-youtube';
 
+const rickRollId = 'dQw4w9WgXcQ';
+const basementJaxxId = '5rAOyh7YmEc';
+const cubsWin = 'HOp8w2PgHlM';
+const mpWin = 'RVmKQNuMSdM';
+const nateWreck = 'l1cKAwv_HOg';
 export default class ThankYou extends Component {
+
   static contextTypes = {
     count: PropTypes.number,
     names: PropTypes.string,
   };
-
-  renderRickRoll = () => {
+  renderYoutube = (videoId, start = 0) => {
     return (
       <Youtube
-        videoId="dQw4w9WgXcQ"
+        videoId={videoId}
         opts={{
           width: '100%',
           height: '',
-          playerVars: { autoplay: 1 },
+          playerVars: {
+            autoplay: 1,
+            start,
+          },
         }}
       />
     );
@@ -24,7 +32,15 @@ export default class ThankYou extends Component {
     const { names } = this.context;
     const booMatch = /Dan.*Slaubaugh/;
     const chrisMatch = /Chris.*Driscol/;
-    if (names.match(booMatch) || names.match(chrisMatch)) return this.renderRickRoll();
+    const nateMatch = /Nate.*Miller/;
+    const brentMatch = /Brent.*Yotty/;
+    const daneMatch = /Dane.*Miller/;
+    const seanMatch = /Sean.*Thornton/;
+    if (names.match(booMatch)) return this.renderYoutube(rickRollId);
+    if (names.match(nateMatch)) return this.renderYoutube(basementJaxxId, 36);
+    if (names.match(brentMatch)) return this.renderYoutube(cubsWin);
+    if (names.match(seanMatch)) return this.renderYoutube(mpWin, 6678);
+    if (names.match(daneMatch) || names.match(chrisMatch)) return this.renderYoutube(nateWreck);
     return null;
   };
 
@@ -35,7 +51,7 @@ export default class ThankYou extends Component {
 
     return (
       <div>
-        <h4 style={{ textAlign: 'center' }}>{message}</h4>
+        <h5 style={{ textAlign: 'center' }}>{message}</h5>
         {this.renderCustomElement()}
       </div>
     );

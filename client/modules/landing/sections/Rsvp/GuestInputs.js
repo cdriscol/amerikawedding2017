@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import styles from '../Rsvp.css';
+import styles from './GuestInputs.css';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import FieldGroup from './FieldGroup';
 
@@ -40,7 +40,6 @@ export default class RsvpGuestInputs extends Component {
             type="text"
             label="Name"
             placeholder={index % 2 === 1 ? 'Jan Doe' : 'John Doe'}
-            className={[styles.rsvp__form__input]}
             onChange={this.handleGuestNameChange.bind(this, index)}
             value={value}
             error={!value ? 'Name required' : null}
@@ -62,7 +61,7 @@ export default class RsvpGuestInputs extends Component {
   render() {
     const { row: { size, count } } = this.context;
     return (
-      <div className={styles.rsvp__rowWrapper}>
+      <div>
         <FormGroup controlId="formControlsSelect">
           <ControlLabel>Counting yourself, how many guests total are you RSVPing for?</ControlLabel>
           <FormControl value={count} componentClass="select" placeholder="select" onChange={this.handleGuestSelection}>

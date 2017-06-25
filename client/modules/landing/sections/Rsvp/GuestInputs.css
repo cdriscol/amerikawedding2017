@@ -1,0 +1,16 @@
+.rsvp__guestInputWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+}
+
+.rsvp__guestInputIndex {
+  font-size: 2rem;
+  min-width: 20px;
+}
+
+.rsvp__guestInputInput {
+  flex: 1;
+}

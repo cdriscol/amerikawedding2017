@@ -1,3 +1,25 @@
 .rsvp__form {
   padding: 40px;
 }
+
+.rsvp__form__submit {
+  color: white;
+  background-color: black;
+  border-color: black;
+  transition: all 100ms ease-in-out;
+  z-index: 100;
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 1.6rem;
+}
+button.rsvp__form__submit:focus,
+button.rsvp__form__submit.focus,
+button.rsvp__form__submit:hover,
+button.rsvp__form__submit:active,
+button.rsvp__form__submit.active,
+button.rsvp__form__submit:active:hover {
+  color: white;
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 0, 0, 0.8);
+}

@@ -3,6 +3,7 @@ import { SectionsContainer, Section } from 'react-fullpage';
 import ClientOnly from '../../components/ClientOnly';
 import styles from './LandingPage.css';
 import { HomeSection } from './sections';
+import RsvpSection from './sections/Rsvp';
 
 class LandingPage extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class LandingPage extends Component {
   }
 
   options = {
-    sectionClassName: 'container',
+    sectionClassName: 'sections',
     anchors: ['home', 'rsvp'],
     scrollBar: false,
     navigation: false,
@@ -28,12 +29,12 @@ class LandingPage extends Component {
       <div>
         <ClientOnly>
           <div>
-            <SectionsContainer className="container" {...this.options} activeSection={current}>
+            <SectionsContainer className="sections" {...this.options} activeSection={current}>
               <Section className={styles.section__home}>
                 <HomeSection />
               </Section>
               <Section className={styles.section__rsvp}>
-                <div></div>
+                <RsvpSection />
               </Section>
             </SectionsContainer>
           </div>

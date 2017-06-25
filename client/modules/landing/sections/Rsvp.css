@@ -1,0 +1,67 @@
+.rsvp__wrapper {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.rsvp__content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.rsvp__title {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.rsvp__formWrapper {
+  background: white;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.rsvp__form {
+  padding: 20px;
+}
+
+.rsvp__form__submit {
+  color: white;
+  background-color: black;
+  border-color: black;
+  transition: all 100ms ease-in-out;
+  z-index: 100;
+}
+button.rsvp__form__submit:focus,
+button.rsvp__form__submit.focus,
+button.rsvp__form__submit:hover,
+button.rsvp__form__submit:active,
+button.rsvp__form__submit.active,
+button.rsvp__form__submit:active:hover {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+.rsvp__form__errorWrapper {
+  position: relative;
+  height: 0;
+  overflow: visible;
+  z-index: 0;
+}
+
+.rsvp__form__error {
+  color: #d21b1b;
+  position: absolute;
+  top: 4px;
+  z-index: 0;
+  transition: all 100ms ease-in-out;
+}
+
+.hide {
+  display: none;
+}

@@ -45,6 +45,7 @@
     "isomorphic-fetch": "^2.2.1",
     "limax": "^1.3.0",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
     "react-fullpage": "https://github.com/subtirelumihail/react-fullpage#master",
     "react-ga": "^2.2.0",

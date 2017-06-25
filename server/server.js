@@ -65,6 +65,14 @@ const renderFullPage = (html, initialState) => {
         ${head.link.toString()}
         ${head.script.toString()}
 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+        <style>
+         .form-control:focus {
+            border-color: #dadada;
+            outline: 0;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 0, 0, 0.6);
+          }
+        </style>
         ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Cardo" rel="stylesheet">

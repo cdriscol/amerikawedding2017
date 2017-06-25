@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import RsvpError from './Error';
 import FieldGroup from './FieldGroup';
 import RsvpGuestInputs from './GuestInputs';
+import RsvpMessage from './Message';
 
 export default class RsvpForm extends Component {
   static contextTypes = {
@@ -29,29 +30,6 @@ export default class RsvpForm extends Component {
 
   handleCodeChange = ({ target: { value } }) => {
     this.context.setCode(value);
-  };
-
-  handleMessageChange = ({ target: { value } }) => {
-    this.context.setMessage(value);
-  };
-
-  renderMessage = () => {
-    const { row: { message } } = this.context;
-    return (
-      <div>
-        <h4>Message</h4>
-        <FieldGroup
-          id="message"
-          componentClass="textarea"
-          type="textarea"
-          label="Send a message to the couple"
-          placeholder="Write your message.."
-          className={[styles.rsvp__form__input]}
-          onChange={this.handleMessageChange}
-          value={message}
-        />
-      </div>
-    );
   };
 
   renderCodeInput = () => {
@@ -89,7 +67,7 @@ export default class RsvpForm extends Component {
         {!row && this.renderCodeInput()}
         {row && this.renderHello()}
         {row && <RsvpGuestInputs />}
-        {row && this.renderMessage()}
+        {row && <RsvpMessage />}
         <Button disabled={submitting} onClick={this.handleSubmit} className={[styles.rsvp__form__submit]} bsStyle="primary" type="button" block>
           {row ? 'Send' : 'Submit'}
         </Button>

@@ -149,7 +149,6 @@ class RsvpSection extends Component {
     const { row: { size, count } } = this.state;
     return (
       <div className={styles.rsvp__rowWrapper}>
-        <h4>Guests</h4>
         <FormGroup controlId="formControlsSelect">
           <ControlLabel>Counting yourself, how many guests total are you RSVPing for?</ControlLabel>
           <FormControl value={count} componentClass="select" placeholder="select" onChange={this.handleGuestSelection}>

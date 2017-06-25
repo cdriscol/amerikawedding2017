@@ -112,7 +112,8 @@ class RsvpContext extends Component {
       .then(() => {
         this.setState({ successMessage: 'Done!' });
       })
-      .catch(() => {
+      .catch(e => {
+        console.error(e);
         const error = 'Something went wrong.. try again later.';
         this.setState({ error, successMessage: null });
       });
@@ -135,7 +136,7 @@ class RsvpContext extends Component {
   }
 
   get attending() {
-    return get(this.state, 'row.attending', []);
+    return get(this.state, 'row.attending', []) || [];
   }
 
   get code() {

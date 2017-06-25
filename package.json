@@ -53,6 +53,7 @@
     "react-ga": "^2.2.0",
     "react-helmet": "^3.1.0",
     "react-router": "^2.4.1",
+    "react-youtube": "^7.4.0",
     "sanitize-html": "^1.11.4",
     "sparkpost": "^2.1.2",
     "winston": "^2.3.1"

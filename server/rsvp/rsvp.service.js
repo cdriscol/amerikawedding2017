@@ -38,7 +38,7 @@ export function updateRowByCodeAsync(code, { count = 0, message = '', attending 
       const updateRow = row;
       updateRow.rsvpcount = count;
       updateRow.rsvpmessage = message;
-      updateRow.rsvpattending = attending.join(', ');
+      updateRow.rsvpattending = Array.isArray(attending) ? attending.join(', ') : attending;
       return new Promise((resolve, reject) => {
         updateRow.save(err => {
           if (err) reject(err);

@@ -76,6 +76,7 @@
 
 .home__button:hover {
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .home__button:focus {

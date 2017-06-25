@@ -26,6 +26,13 @@
   transition: all 100ms ease-in-out;
 }
 
+.rsvp_formWrapper::before {
+  content: '';
+  height: 50px;
+  width: 40px;
+  background: red;
+}
+
 .rsvp__form {
   padding: 40px;
 }

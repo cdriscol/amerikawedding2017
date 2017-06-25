@@ -58,6 +58,7 @@
   color: white;
   font-size: 4rem;
   letter-spacing: 0.3rem;
+  margin: 20px;
 }
 
 .home__button {
@@ -69,6 +70,7 @@
   border-color: white;
   color: white;
   font-weight: 400;
+  font-size: 1.6rem;
 }
 
 .home__button:hover {

@@ -36,7 +36,7 @@ class RsvpSection extends Component {
   };
 
   handleRsvpSubmit = () => {
-    const { code, row } = this.state;
+    const { row } = this.state;
     if (row.count) {
       for (let i = 0; i < row.count; i++) {
         if (!row.attending[i]) {
@@ -86,6 +86,12 @@ class RsvpSection extends Component {
     }
     row.attending[index] = value;
     this.setState({ row, error: null });
+  };
+
+  handleMessageChange = ({ target: { value } }) => {
+    const { row } = this.state;
+    row.message = value;
+    this.setState({ row });
   };
 
   renderGuestOptions = () => {
@@ -144,6 +150,25 @@ class RsvpSection extends Component {
     );
   };
 
+  renderMessage = () => {
+    const { row: { message } } = this.state;
+    return (
+      <div>
+        <h4>Message</h4>
+        <FieldGroup
+          id="message"
+          componentClass="textarea"
+          type="textarea"
+          label="Send a message to the couple"
+          placeholder="Write your message.."
+          className={[styles.rsvp__form__input]}
+          onChange={this.handleMessageChange}
+          value={message}
+        />
+      </div>
+    );
+  };
+
   render() {
     const { code, error, row, submitting } = this.state;
 
@@ -166,8 +191,9 @@ class RsvpSection extends Component {
                 disabled={row}
               />
               {row && this.renderRowFormControls()}
+              {row && this.renderMessage()}
               <Button disabled={submitting} onClick={this.handleSubmit} className={[styles.rsvp__form__submit]} bsStyle="primary" type="button" block>
-                Submit
+                {row ? 'Send' : 'Submit'}
               </Button>
               <div className={[styles.rsvp__form__errorWrapper]}>
                 <div className={[styles.rsvp__form__error]}>{this.getCodeError() || error}</div>

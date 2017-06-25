@@ -20,8 +20,10 @@ FieldGroup.propTypes = {
 
 class RsvpSection extends Component {
   static contextTypes = {
-    code: PropTypes.string.isRequired,
+    code: PropTypes.string,
     setCode: PropTypes.func.isRequired,
+    row: PropTypes.object,
+    setRow: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -30,7 +32,6 @@ class RsvpSection extends Component {
       submitted: false,
       submitting: false,
       error: null,
-      row: null,
     };
   }
 
@@ -42,8 +43,7 @@ class RsvpSection extends Component {
   };
 
   handleRsvpSubmit = () => {
-    const { row } = this.state;
-    const { code } = this.context;
+    const { code, row } = this.context;
     if (row.count) {
       for (let i = 0; i < row.count; i++) {
         if (!row.attending[i]) {
@@ -65,8 +65,7 @@ class RsvpSection extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { row } = this.state;
-    const { code } = this.context;
+    const { code, row, setRow } = this.context;
     if (row) {
       this.handleRsvpSubmit();
       return;
@@ -74,7 +73,8 @@ class RsvpSection extends Component {
     if (code) {
       callApi(`rsvp/${code}`)
         .then(newRow => {
-          this.setState({ row: newRow, submitted: false });
+          this.setState({ submitted: false });
+          setRow(newRow);
         })
         .catch(rawError => {
           let error = 'Something went wrong.. try again later.';
@@ -93,29 +93,30 @@ class RsvpSection extends Component {
   };
 
   handleGuestSelection = ({ target: { value } }) => {
-    const { row } = this.state;
+    const { row, setRow } = this.context;
     row.count = Number(value);
-    this.setState({ row });
+    setRow(row);
   };
 
   handleGuestNameChange = (index, { target: { value } }) => {
-    const { row, count } = this.state;
+    const { row, setRow } = this.context;
     if (!row.attending) row.attending = [];
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < row.count; i++) {
       if (row.attending.length <= i) row.attending.push('');
     }
     row.attending[index] = value;
-    this.setState({ row, error: null });
+    this.setState({ error: null });
+    setRow(row);
   };
 
   handleMessageChange = ({ target: { value } }) => {
-    const { row } = this.state;
+    const { row, setRow } = this.context;
     row.message = value;
-    this.setState({ row });
+    setRow(row);
   };
 
   renderGuestOptions = () => {
-    const { row: { size } } = this.state;
+    const { row: { size } } = this.context;
     const options = [];
     for (let i = 0; i <= size; i++) {
       let value = 'I will not be attending';
@@ -147,7 +148,7 @@ class RsvpSection extends Component {
   };
 
   renderGuestInputs = () => {
-    const { row: { count, attending } } = this.state;
+    const { row: { count, attending } } = this.context;
     const guestInputs = [];
     for (let i = 0; i < count; i++) {
       guestInputs.push(this.renderGuestInput(i, attending));
@@ -156,7 +157,7 @@ class RsvpSection extends Component {
   };
 
   renderRowFormControls = () => {
-    const { row: { size, count } } = this.state;
+    const { row: { size, count } } = this.context;
     return (
       <div className={styles.rsvp__rowWrapper}>
         <FormGroup controlId="formControlsSelect">
@@ -172,7 +173,7 @@ class RsvpSection extends Component {
   };
 
   renderMessage = () => {
-    const { row: { message } } = this.state;
+    const { row: { message } } = this.context;
     return (
       <div>
         <h4>Message</h4>
@@ -191,8 +192,7 @@ class RsvpSection extends Component {
   };
 
   renderCodeInput = () => {
-    const { row } = this.state;
-    const { code } = this.context;
+    const { code, row } = this.context;
     return (
       <div>
         <h4>Enter the code from your invitation card</h4>
@@ -212,14 +212,15 @@ class RsvpSection extends Component {
   };
 
   renderHello = () => {
-    const { row } = this.state;
+    const { row } = this.context;
     return (
       <h4>Hello, {row.names}!</h4>
     );
   };
 
   renderForm = () => {
-    const { error, row, submitting } = this.state;
+    const { error, submitting } = this.state;
+    const { row } = this.context;
     const currentError = this.getCodeError() || error;
     return (
       <Form className={styles.rsvp__form} onSubmit={this.handleSubmit}>

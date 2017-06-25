@@ -47,7 +47,8 @@ class RsvpSection extends Component {
     }
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     const { code, row } = this.state;
     if (row) {
       this.handleRsvpSubmit();
@@ -177,7 +178,7 @@ class RsvpSection extends Component {
         <div className={styles.rsvp__content}>
           <h3 className={styles.rsvp__title}>RSVP</h3>
           <div className={styles.rsvp__formWrapper}>
-            <Form className={styles.rsvp__form}>
+            <Form className={styles.rsvp__form} onSubmit={this.handleSubmit}>
               <h4>Enter the code from your invitation card</h4>
               <FieldGroup
                 id="rsvpCode"

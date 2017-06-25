@@ -18,4 +18,4 @@ jobs:
           command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && yarn build:prod'
       - run:
           name: forever-restart
-          command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && RSVP_ID=$RSVP_ID yarn forever:restart'
+          command: ssh -o "StrictHostKeyChecking no" $DROPLET_USER@$DROPLET_IP 'cd /opt/amerikawedding2017/current && SPARKPOST_KEY=$SPARKPOST_KEY AMERIKA_EMAIL=$AMERIKA_EMAIL yarn forever:restart'

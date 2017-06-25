@@ -24,16 +24,15 @@ class RsvpSection extends Component {
     setCode: PropTypes.func.isRequired,
     row: PropTypes.object,
     setRow: PropTypes.func.isRequired,
+    submitted: PropTypes.bool,
+    submitting: PropTypes.bool,
+    error: PropTypes.string,
+    fetchRsvp: PropTypes.func.isRequired,
+    postRsvp: PropTypes.func.isRequired,
+    setCount: PropTypes.func.isRequired,
+    setMessage: PropTypes.func.isRequired,
+    updateGuest: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      submitted: false,
-      submitting: false,
-      error: null,
-    };
-  }
 
   getCodeError = () => {
     const { submitted } = this.state;
@@ -65,54 +64,26 @@ class RsvpSection extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { code, row, setRow } = this.context;
-    if (row) {
-      this.handleRsvpSubmit();
-      return;
-    }
-    if (code) {
-      callApi(`rsvp/${code}`)
-        .then(newRow => {
-          this.setState({ submitted: false });
-          setRow(newRow);
-        })
-        .catch(rawError => {
-          let error = 'Something went wrong.. try again later.';
-          if (rawError.status === 404) error = 'Code not found..';
-          this.setState({ error, submitted: true });
-        });
-    } else {
-      this.setState({ submitted: true });
-    }
+    const { row, postRsvp, fetchRsvp } = this.context;
+    return row ? postRsvp() : fetchRsvp();
   };
 
   handleCodeChange = ({ target: { value } }) => {
-    const { setCode } = this.context;
-    setCode(value);
-    this.setState({ error: null });
+    this.context.setCode(value);
   };
 
   handleGuestSelection = ({ target: { value } }) => {
-    const { row, setRow } = this.context;
-    row.count = Number(value);
-    setRow(row);
+    this.context.setCount(value);
   };
 
   handleGuestNameChange = (index, { target: { value } }) => {
-    const { row, setRow } = this.context;
-    if (!row.attending) row.attending = [];
-    for (let i = 0; i < row.count; i++) {
-      if (row.attending.length <= i) row.attending.push('');
-    }
-    row.attending[index] = value;
-    this.setState({ error: null });
-    setRow(row);
+    const { updateGuest } = this.context;
+    updateGuest(index, value);
   };
 
   handleMessageChange = ({ target: { value } }) => {
-    const { row, setRow } = this.context;
-    row.message = value;
-    setRow(row);
+    const { setMessage } = this.context;
+    setMessage(value);
   };
 
   renderGuestOptions = () => {
@@ -255,8 +226,8 @@ class RsvpSection extends Component {
             {this.renderForm()}
             {successMessage && this.renderSuccessMessage()}
           </div>
-          <div className={styles.rsvp__formLeaf1}></div>
-          <div className={styles.rsvp__formLeaf2}></div>
+          <div className={styles.rsvp__formLeaf1} />
+          <div className={styles.rsvp__formLeaf2} />
         </div>
       </div>
     );

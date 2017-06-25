@@ -108,7 +108,9 @@ class RsvpSection extends Component {
     const { row: { size } } = this.state;
     const options = [];
     for (let i = 0; i <= size; i++) {
-      options.push(<option key={i} value={i}>{i} guest{i === 1 ? 's' : ''}</option>);
+      let value = 'I will not be attending';
+      if (i > 0) value = `${i} guest${i === 1 ? 's' : ''}`;
+      options.push(<option key={i} value={i}>{value}</option>);
     }
     return options;
   };

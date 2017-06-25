@@ -181,10 +181,10 @@ class RsvpSection extends Component {
     );
   };
 
-  renderForm = () => {
-    const { code, error, row, submitting } = this.state;
+  renderCodeInput = () => {
+    const { code, row } = this.state;
     return (
-      <Form className={styles.rsvp__form} onSubmit={this.handleSubmit}>
+      <div>
         <h4>Enter the code from your invitation card</h4>
         <FieldGroup
           id="rsvpCode"
@@ -197,6 +197,23 @@ class RsvpSection extends Component {
           error={this.getCodeError()}
           disabled={row}
         />
+      </div>
+    );
+  };
+
+  renderHello = () => {
+    const { row } = this.state;
+    return (
+      <h4>Hello, {row.names}</h4>
+    );
+  };
+
+  renderForm = () => {
+    const { error, row, submitting } = this.state;
+    return (
+      <Form className={styles.rsvp__form} onSubmit={this.handleSubmit}>
+        {!row && this.renderCodeInput()}
+        {row && this.renderHello()}
         {row && this.renderRowFormControls()}
         {row && this.renderMessage()}
         <Button disabled={submitting} onClick={this.handleSubmit} className={[styles.rsvp__form__submit]} bsStyle="primary" type="button" block>

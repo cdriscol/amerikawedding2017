@@ -35,12 +35,28 @@ class RsvpSection extends Component {
     return null;
   };
 
+  handleRsvpSubmit = () => {
+    const { code, row } = this.state;
+    if (row.count) {
+      for (let i = 0; i < row.count; i++) {
+        if (!row.attending[i]) {
+          this.setState({ error: 'You must list your guests' });
+          return;
+        }
+      }
+    }
+  };
+
   handleSubmit = () => {
-    const { code } = this.state;
+    const { code, row } = this.state;
+    if (row) {
+      this.handleRsvpSubmit();
+      return;
+    }
     if (code) {
       callApi(`rsvp/${this.state.code}`)
-        .then(row => {
-          this.setState({ row, submitted: false });
+        .then(newRow => {
+          this.setState({ row: newRow, submitted: false });
         })
         .catch(rawError => {
           let error = 'Something went wrong.. try again later.';
@@ -58,21 +74,61 @@ class RsvpSection extends Component {
 
   handleGuestSelection = ({ target: { value } }) => {
     const { row } = this.state;
-    row.count = value;
+    row.count = Number(value);
     this.setState({ row });
+  };
+
+  handleGuestNameChange = (index, { target: { value } }) => {
+    const { row, count } = this.state;
+    if (!row.attending) row.attending = [];
+    for (let i = 0; i < count; i++) {
+      if (row.attending.length <= i) row.attending.push('');
+    }
+    row.attending[index] = value;
+    this.setState({ row, error: null });
   };
 
   renderGuestOptions = () => {
     const { row: { count, size } } = this.state;
     const options = [];
     for (let i = 0; i <= size; i++) {
-      options.push(<option value={i} selected={i === count}>{i} guest{i > 1 ? 's' : ''}</option>);
+      options.push(<option key={i} value={i} selected={i === count}>{i} guest{i > 1 ? 's' : ''}</option>);
     }
     return options;
   };
 
+  renderGuestInput = (index, attending) => {
+    const value = index < attending.length ? attending[index] : '';
+    return (
+      <div key={index} className={styles.rsvp__guestInputWrapper}>
+        <div className={styles.rsvp__guestInputIndex}>{index + 1}</div>
+        <div className={styles.rsvp__guestInputInput}>
+          <FieldGroup
+            id={`attending${index}`}
+            type="text"
+            label="Name"
+            placeholder="John Doe"
+            className={[styles.rsvp__form__input]}
+            onChange={this.handleGuestNameChange.bind(this, index)}
+            value={value}
+            error={!value ? 'Name required' : null}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  renderGuestInputs = () => {
+    const { row: { count, attending } } = this.state;
+    const guestInputs = [];
+    for (let i = 0; i < count; i++) {
+      guestInputs.push(this.renderGuestInput(i, attending));
+    }
+    return guestInputs;
+  };
+
   renderRowFormControls = () => {
-    const { row: { size } } = this.state;
+    const { row: { size, count } } = this.state;
     return (
       <div className={styles.rsvp__rowWrapper}>
         <h4>Guests</h4>
@@ -82,6 +138,8 @@ class RsvpSection extends Component {
             {this.renderGuestOptions(size)}
           </FormControl>
         </FormGroup>
+        {count ? <h4>List guests</h4> : null}
+        {this.renderGuestInputs()}
       </div>
     );
   };

@@ -109,7 +109,7 @@ class RsvpSection extends Component {
     const options = [];
     for (let i = 0; i <= size; i++) {
       let value = 'I will not be attending';
-      if (i > 0) value = `${i} guest${i === 1 ? 's' : ''}`;
+      if (i > 0) value = `${i} guest${i > 1 ? 's' : ''}`;
       options.push(<option key={i} value={i}>{value}</option>);
     }
     return options;

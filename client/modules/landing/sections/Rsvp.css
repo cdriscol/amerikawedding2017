@@ -55,21 +55,6 @@ button.rsvp__form__submit:active:hover {
   border-color: rgba(0, 0, 0, 0.8);
 }
 
-.rsvp__form__errorWrapper {
-  position: relative;
-  height: 0;
-  overflow: visible;
-  z-index: 0;
-}
-
-.rsvp__form__error {
-  color: #d21b1b;
-  position: absolute;
-  top: 4px;
-  z-index: 0;
-  transition: all 100ms ease-in-out;
-}
-
 .rsvp__guestInputWrapper {
   display: flex;
   flex-direction: row;

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './Rsvp.css';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import callApi from '../../../util/apiCaller';
+import RsvpError from './Rsvp/Error';
 
 function FieldGroup({ id, label, error, ...props }) {
   return (
@@ -209,6 +210,7 @@ class RsvpSection extends Component {
 
   renderForm = () => {
     const { error, row, submitting } = this.state;
+    const currentError = this.getCodeError() || error;
     return (
       <Form className={styles.rsvp__form} onSubmit={this.handleSubmit}>
         {!row && this.renderCodeInput()}
@@ -218,9 +220,7 @@ class RsvpSection extends Component {
         <Button disabled={submitting} onClick={this.handleSubmit} className={[styles.rsvp__form__submit]} bsStyle="primary" type="button" block>
           {row ? 'Send' : 'Submit'}
         </Button>
-        <div className={[styles.rsvp__form__errorWrapper]}>
-          <div className={[styles.rsvp__form__error]}>{this.getCodeError() || error}</div>
-        </div>
+        <RsvpError error={currentError} />
       </Form>
     );
   };

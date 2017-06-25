@@ -1,0 +1,20 @@
+.rsvp__form__errorWrapper {
+  position: relative;
+  height: 0;
+  overflow: visible;
+  z-index: 0;
+}
+
+.rsvp__form__error {
+  color: #d21b1b;
+  opacity: 0;
+  position: absolute;
+  top: 4px;
+  z-index: 0;
+  transition: all 250ms ease-in-out;
+  font-size: 1.4rem;
+}
+
+.isError {
+  opacity: 1;
+}

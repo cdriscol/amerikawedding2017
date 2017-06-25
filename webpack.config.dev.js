@@ -15,6 +15,7 @@ module.exports = {
       './client/index.js',
     ],
     vendor: [
+      'babel-polyfill',
       'react',
       'react-dom',
     ],

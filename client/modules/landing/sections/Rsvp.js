@@ -171,7 +171,7 @@ class RsvpSection extends Component {
           componentClass="textarea"
           type="textarea"
           label="Send a message to the couple"
-          placeholder="Write your message.."
+          placeholder="Write your message!"
           className={[styles.rsvp__form__input]}
           onChange={this.handleMessageChange}
           value={message}

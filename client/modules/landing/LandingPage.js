@@ -4,6 +4,7 @@ import ClientOnly from '../../components/ClientOnly';
 import styles from './LandingPage.css';
 import { HomeSection } from './sections';
 import RsvpSection from './sections/Rsvp';
+import RsvpContext from './sections/Rsvp/Context';
 
 class LandingPage extends Component {
   constructor(props) {
@@ -34,7 +35,9 @@ class LandingPage extends Component {
                 <HomeSection />
               </Section>
               <Section className={styles.section__rsvp}>
-                <RsvpSection />
+                <RsvpContext>
+                  <RsvpSection />
+                </RsvpContext>
               </Section>
             </SectionsContainer>
           </div>

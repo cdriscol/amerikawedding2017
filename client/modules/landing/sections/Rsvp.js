@@ -19,10 +19,14 @@ FieldGroup.propTypes = {
 };
 
 class RsvpSection extends Component {
+  static contextTypes = {
+    code: PropTypes.string.isRequired,
+    setCode: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      code: '',
       submitted: false,
       submitting: false,
       error: null,
@@ -31,13 +35,15 @@ class RsvpSection extends Component {
   }
 
   getCodeError = () => {
-    const { code, submitted } = this.state;
+    const { submitted } = this.state;
+    const { code } = this.context;
     if (submitted && !code) return 'A code is required';
     return null;
   };
 
   handleRsvpSubmit = () => {
     const { row } = this.state;
+    const { code } = this.context;
     if (row.count) {
       for (let i = 0; i < row.count; i++) {
         if (!row.attending[i]) {
@@ -47,7 +53,7 @@ class RsvpSection extends Component {
       }
     }
 
-    callApi(`rsvp/${this.state.code}`, 'post', row)
+    callApi(`rsvp/${code}`, 'post', row)
       .then(() => {
         this.setState({ successMessage: 'Done!' });
       })
@@ -59,13 +65,14 @@ class RsvpSection extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { code, row } = this.state;
+    const { row } = this.state;
+    const { code } = this.context;
     if (row) {
       this.handleRsvpSubmit();
       return;
     }
     if (code) {
-      callApi(`rsvp/${this.state.code}`)
+      callApi(`rsvp/${code}`)
         .then(newRow => {
           this.setState({ row: newRow, submitted: false });
         })
@@ -80,7 +87,9 @@ class RsvpSection extends Component {
   };
 
   handleCodeChange = ({ target: { value } }) => {
-    this.setState({ code: value, error: null });
+    const { setCode } = this.context;
+    setCode(value);
+    this.setState({ error: null });
   };
 
   handleGuestSelection = ({ target: { value } }) => {
@@ -182,7 +191,8 @@ class RsvpSection extends Component {
   };
 
   renderCodeInput = () => {
-    const { code, row } = this.state;
+    const { row } = this.state;
+    const { code } = this.context;
     return (
       <div>
         <h4>Enter the code from your invitation card</h4>

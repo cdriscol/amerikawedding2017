@@ -3,6 +3,7 @@ import config from '../config';
 import logger from '../util/logger';
 const client = new SparkPost(config.sparkpostKey);
 
+const recipients = config.email.split(',').map(address => ({ address }));
 export default function sendEmailAsync({ subject, body }) {
   return client.transmissions.send({
     content: {
@@ -10,7 +11,7 @@ export default function sendEmailAsync({ subject, body }) {
       subject,
       text: body,
     },
-    recipients: [{ address: config.email }],
+    recipients,
   })
     .then(data => {
       logger.log('sendEmail', data);

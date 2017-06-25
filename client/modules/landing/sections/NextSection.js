@@ -4,7 +4,7 @@ import { TweenMax } from 'gsap';
 
 class HomeSection extends Component {
   componentDidMount() {
-    TweenMax.to(this.svg, 2, { opacity: 0.5, yoyo: true, repeat: -1 });
+    TweenMax.fromTo(this.svg, 1.5, { opacity: 0.5 }, { opacity: 1, scale: 1.25, yoyo: true, repeat: -1 });
   }
 
   render() {

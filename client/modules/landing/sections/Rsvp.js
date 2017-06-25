@@ -1,27 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './Rsvp.css';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
-import callApi from '../../../util/apiCaller';
 import RsvpError from './Rsvp/Error';
-
-function FieldGroup({ id, label, error, ...props }) {
-  return (
-    <FormGroup controlId={id} validationState={error ? 'error' : null}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
-    </FormGroup>
-  );
-}
-FieldGroup.propTypes = {
-  id: PropTypes.string,
-  label: PropTypes.string,
-  error: PropTypes.string,
-};
+import FieldGroup from './Rsvp/FieldGroup';
 
 class RsvpSection extends Component {
   static contextTypes = {
     code: PropTypes.string,
     setCode: PropTypes.func.isRequired,
+    codeError: PropTypes.string,
     row: PropTypes.object,
     setRow: PropTypes.func.isRequired,
     submitted: PropTypes.bool,
@@ -32,34 +19,7 @@ class RsvpSection extends Component {
     setCount: PropTypes.func.isRequired,
     setMessage: PropTypes.func.isRequired,
     updateGuest: PropTypes.func.isRequired,
-  };
-
-  getCodeError = () => {
-    const { submitted } = this.state;
-    const { code } = this.context;
-    if (submitted && !code) return 'A code is required';
-    return null;
-  };
-
-  handleRsvpSubmit = () => {
-    const { code, row } = this.context;
-    if (row.count) {
-      for (let i = 0; i < row.count; i++) {
-        if (!row.attending[i]) {
-          this.setState({ error: 'You must list your guests' });
-          return;
-        }
-      }
-    }
-
-    callApi(`rsvp/${code}`, 'post', row)
-      .then(() => {
-        this.setState({ successMessage: 'Done!' });
-      })
-      .catch(() => {
-        const error = 'Something went wrong.. try again later.';
-        this.setState({ error, successMessage: null });
-      });
+    successMessage: PropTypes.string,
   };
 
   handleSubmit = e => {
@@ -77,13 +37,11 @@ class RsvpSection extends Component {
   };
 
   handleGuestNameChange = (index, { target: { value } }) => {
-    const { updateGuest } = this.context;
-    updateGuest(index, value);
+    this.context.updateGuest(index, value);
   };
 
   handleMessageChange = ({ target: { value } }) => {
-    const { setMessage } = this.context;
-    setMessage(value);
+    this.context.setMessage(value);
   };
 
   renderGuestOptions = () => {
@@ -163,7 +121,7 @@ class RsvpSection extends Component {
   };
 
   renderCodeInput = () => {
-    const { code, row } = this.context;
+    const { code, row, codeError } = this.context;
     return (
       <div>
         <h4>Enter the code from your invitation card</h4>
@@ -175,7 +133,7 @@ class RsvpSection extends Component {
           className={[styles.rsvp__form__input]}
           onChange={this.handleCodeChange}
           value={code}
-          error={this.getCodeError()}
+          error={codeError}
           disabled={row}
         />
       </div>
@@ -190,9 +148,8 @@ class RsvpSection extends Component {
   };
 
   renderForm = () => {
-    const { error, submitting } = this.state;
-    const { row } = this.context;
-    const currentError = this.getCodeError() || error;
+    const { row, codeError, error, submitting } = this.context;
+    const currentError = codeError || error;
     return (
       <Form className={styles.rsvp__form} onSubmit={this.handleSubmit}>
         {!row && this.renderCodeInput()}
@@ -216,7 +173,7 @@ class RsvpSection extends Component {
   };
 
   render() {
-    const { successMessage } = this.state;
+    const { successMessage } = this.context;
 
     return (
       <div className={styles.rsvp__wrapper}>

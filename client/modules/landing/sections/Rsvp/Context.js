@@ -9,11 +9,18 @@ class RsvpContext extends Component {
   static childContextTypes = {
     code: PropTypes.string.isRequired,
     setCode: PropTypes.func,
+    codeError: PropTypes.string,
     row: PropTypes.object,
     setRow: PropTypes.func,
     setCount: PropTypes.func,
     setMessage: PropTypes.func,
     updateGuest: PropTypes.func,
+    submitted: PropTypes.bool,
+    submitting: PropTypes.bool,
+    successMessage: PropTypes.string,
+    error: PropTypes.string,
+    fetchRsvp: PropTypes.func,
+    postRsvp: PropTypes.func,
   };
 
   state = {
@@ -38,6 +45,8 @@ class RsvpContext extends Component {
       setCount: this.setCount,
       updateGuest: this.updateGuest,
       setMessage: this.setMessage,
+      codeError: this.codeError,
+      successMessage: this.successMessage,
     };
   }
 
@@ -78,10 +87,35 @@ class RsvpContext extends Component {
       this.setState({ submitted: true });
     }
   };
-  postRsvp = () => {};
+  postRsvp = () => {
+    const { code, row } = this.state;
+    if (row.count) {
+      for (let i = 0; i < row.count; i++) {
+        if (!row.attending[i]) {
+          this.setState({ error: 'You must list your guests' });
+          return;
+        }
+      }
+    }
+
+    callApi(`rsvp/${code}`, 'post', row)
+      .then(() => {
+        this.setState({ successMessage: 'Done!' });
+      })
+      .catch(() => {
+        const error = 'Something went wrong.. try again later.';
+        this.setState({ error, successMessage: null });
+      });
+  };
 
   get code() {
     return this.state.code || '';
+  }
+
+  get codeError() {
+    const { submitted, code } = this.state;
+    if (submitted && !code) return 'A code is required';
+    return null;
   }
 
   get row() {
@@ -94,6 +128,10 @@ class RsvpContext extends Component {
 
   get submitting() {
     return this.state.submitting;
+  }
+
+  get successMessage() {
+    return this.state.successMessage;
   }
 
   get error() {

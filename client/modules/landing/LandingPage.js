@@ -30,7 +30,7 @@ class LandingPage extends Component {
       <div>
         <ClientOnly>
           <div>
-            <SectionsContainer className="sections" {...this.options} activeSection={current}>
+            <SectionsContainer {...this.options} activeSection={current}>
               <Section className={styles.section__home}>
                 <HomeSection />
               </Section>

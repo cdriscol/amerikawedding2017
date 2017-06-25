@@ -14,3 +14,9 @@
 .rsvp__guestInputInput {
   flex: 1;
 }
+
+@media (max-width: 575px) {
+  .rsvp__guestInputIndex {
+    font-size: 1.6rem;
+  }
+}

@@ -23,3 +23,22 @@ button.rsvp__form__submit:active:hover {
   background: rgba(0, 0, 0, 0.9);
   border-color: rgba(0, 0, 0, 0.8);
 }
+
+
+@media (max-width: 575px) {
+  .rsvp__form {
+    padding: 10px;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+  }
+
+  div.form-group {
+    margin-bottom: 5px;
+  }
+
+  input {
+    font-size: 1.0rem;
+  }
+}

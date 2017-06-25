@@ -2,6 +2,13 @@
   background: url('../landing/home_bg.png') right center;
 }
 
+@media (max-width: 575px) {
+  .section__home {
+    background-position-x: 85%;
+    background-position-y: top;
+  }
+}
+
 .section__rsvp {
   background: url('../landing/rsvp_bg.png') center;
 }

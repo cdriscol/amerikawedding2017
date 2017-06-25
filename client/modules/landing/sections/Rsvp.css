@@ -52,4 +52,23 @@
   transform: rotate(60deg);
 }
 
+@media (max-width: 575px) {
+  .rsvp__title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 
+  .rsvp__formWrapper {
+    min-width: inherit;
+  }
+
+  .rsvp__formLeaf1 {
+    top: calc(50% + 100px);
+    left: calc(50% - 250px);
+  }
+
+  .rsvp__formLeaf2 {
+    top: calc(50% - 140px);
+    left: calc(50% + 130px);
+  }
+}

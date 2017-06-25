@@ -36,6 +36,7 @@ export function updateRowByCodeAsync(code, { count = 0, message = '', attending 
   return findRowByCodeAsync(code, { transform: false })
     .then(row => {
       const updateRow = row;
+      updateRow.rsvpdate = new Date().toISOString();
       updateRow.rsvpcount = count;
       updateRow.rsvpmessage = message;
       updateRow.rsvpattending = Array.isArray(attending) ? attending.join(', ') : attending;

@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import styles from './NextSection.css';
+import { TweenMax } from 'gsap';
 
 class HomeSection extends Component {
+  componentDidMount() {
+    TweenMax.to(this.svg, 2, { opacity: 0.5, yoyo: true, repeat: -1 });
+  }
+
   render() {
     return (
       <div className={styles.nextSection__wrapper}>
@@ -10,6 +15,7 @@ class HomeSection extends Component {
             <svg
               viewBox="0 0 24 24"
               className={styles.nextSection__svg}
+              ref={e => { this.svg = e; }}
             >
               <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
             </svg>

@@ -125,7 +125,7 @@ class RsvpSection extends Component {
             id={`attending${index}`}
             type="text"
             label="Name"
-            placeholder="John Doe"
+            placeholder={index % 2 === 1 ? 'Jan Doe' : 'John Doe'}
             className={[styles.rsvp__form__input]}
             onChange={this.handleGuestNameChange.bind(this, index)}
             value={value}
